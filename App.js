@@ -1,8 +1,6 @@
-import { StyleSheet, View } from 'react-native';
-import { colors } from './src/theme/colors';
 import { useFonts } from 'expo-font';
 import Text from './src/components/Text/Text';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './src/screens/Home.js';
 
@@ -22,21 +20,12 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Home" component={Home} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </View>
+    <NavigationContainer theme={DarkTheme}>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Home" component={Home} />
+      </Stack.Navigator>
+    </NavigationContainer>
+
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.black
-  },
-});
