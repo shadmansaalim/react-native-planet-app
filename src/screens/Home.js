@@ -7,7 +7,39 @@ import Text from '../components/Text/Text'
 import { spacing } from '../theme/spacing'
 import { AntDesign } from '@expo/vector-icons'
 
+
+
+const PlanetItem = ({ name, color }) => {
+    return (
+        <TouchableOpacity
+            onPress={() => {
+                navigation.navigate('Details', { planet: item })
+            }}
+            style={styles.item}
+        >
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <View style={[styles.circle, { backgroundColor: color }]}></View>
+                <Text preset="h3" style={styles.itemName}>{name}</Text>
+            </View>
+            <AntDesign name="right" size={18} color="white" />
+        </TouchableOpacity>
+    );
+};
+
+
+
 export default function Home({ navigation }) {
+    const renderItem = ({ item }) => {
+        const { name, color } = item;
+        return (
+            <PlanetItem
+                name={name}
+                color={color}
+            />
+        );
+    };
+
+
     return (
         <SafeAreaView style={styles.container}>
             <PlanetHeader />
@@ -15,23 +47,7 @@ export default function Home({ navigation }) {
                 contentContainerStyle={styles.list}
                 data={PLANET_LIST}
                 keyExtractor={(item) => item.name}
-                renderItem={({ item }) => {
-                    const { name, color } = item;
-                    return (
-                        <TouchableOpacity
-                            onPress={() => {
-                                navigation.navigate('Details', { planet: item })
-                            }}
-                            style={styles.item}
-                        >
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <View style={[styles.circle, { backgroundColor: color }]}></View>
-                                <Text preset="h3" style={styles.itemName}>{name}</Text>
-                            </View>
-                            <AntDesign name="right" size={18} color="white" />
-                        </TouchableOpacity>
-                    );
-                }}
+                renderItem={renderItem}
                 ItemSeparatorComponent={() => <View style={styles.separator}></View>}
             />
         </SafeAreaView>
