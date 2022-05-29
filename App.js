@@ -1,31 +1,50 @@
-import { useFonts } from 'expo-font';
-import Text from './src/components/Text/Text';
-import { NavigationContainer, DarkTheme } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
+import * as Font from 'expo-font';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './src/screens/Home.js';
+import AppLoading from "expo-app-loading";
+import { useState } from 'react';
+import Details from './src/screens/Details.js';
+
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
-  const [loaded] = useFonts({
-    'Antonio-Medium': require('./assets/fonts/Antonio-Medium.ttf'),
-    'Spartan-Bold': require('./assets/fonts/LeagueSpartan-Bold.ttf'),
-    'Spartan-Regular': require('./assets/fonts/LeagueSpartan-Regular.ttf'),
-  });
 
-  if (!loaded) {
+const getFonts = () => Font.loadAsync({
+  'Antonio-Medium': require('./assets/fonts/Antonio-Medium.ttf'),
+  'Spartan-Bold': require('./assets/fonts/Spartan-Bold.ttf'),
+  'Spartan-Regular': require('./assets/fonts/Spartan-Regular.ttf'),
+});
+
+
+export default function App() {
+
+
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+
+  if (fontsLoaded) {
     return (
-      <Text>Font is loading...</Text>
+      <>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Details" component={Details} />
+          </Stack.Navigator>
+        </NavigationContainer>
+        <StatusBar style="light" />
+      </>
     );
   }
 
-  return (
-    <NavigationContainer theme={DarkTheme}>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Home" component={Home} />
-      </Stack.Navigator>
-    </NavigationContainer>
-
-  );
+  else {
+    return (
+      <AppLoading
+        startAsync={getFonts}
+        onFinish={() => setFontsLoaded(true)}
+        onError={console.warn}
+      />
+    );
+  }
 }
 

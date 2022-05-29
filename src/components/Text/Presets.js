@@ -3,12 +3,14 @@ import { typography } from "../../theme/typography";
 
 const BASE = {
     fontFamily: typography.primary,
-    color: colors.white
+    color: colors.white,
+    fontSize: 16
 }
 
 const BASE_BOLD = {
     fontFamily: typography.primaryBold,
-    color: colors.white
+    color: colors.white,
+    fontSize: 16
 }
 
 const BOLD = {
@@ -25,10 +27,6 @@ export const presets = {
     },
     h2: {
         ...BOLD,
-        fontSize: 28
-    },
-    h2: {
-        ...BASE_BOLD,
         fontSize: 28
     },
     h3: {
