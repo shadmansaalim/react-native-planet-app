@@ -6,10 +6,13 @@ import { colors } from '../theme/colors'
 import Text from '../components/Text/Text'
 import { spacing } from '../theme/spacing'
 import { AntDesign } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 
 
 
-const PlanetItem = ({ name, color }) => {
+const PlanetItem = ({ item }) => {
+    const { name, color } = item;
+    const navigation = useNavigation();
     return (
         <TouchableOpacity
             onPress={() => {
@@ -28,13 +31,11 @@ const PlanetItem = ({ name, color }) => {
 
 
 
-export default function Home({ navigation }) {
+export default function Home() {
     const renderItem = ({ item }) => {
-        const { name, color } = item;
         return (
             <PlanetItem
-                name={name}
-                color={color}
+                item={item}
             />
         );
     };

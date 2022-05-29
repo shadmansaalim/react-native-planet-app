@@ -19,7 +19,7 @@ export default function PlanetHeader({ title = "THE PLANETS", backButton }) {
                 </Pressable>
             )}
 
-            <Text preset="h3">{title}</Text>
+            <Text preset="h3" style={styles.title}>{title}</Text>
 
         </View>
     )
@@ -32,5 +32,8 @@ const styles = StyleSheet.create({
         padding: spacing[5],
         borderBottomColor: colors.white,
         borderBottomWidth: 0.2,
+    },
+    title: {
+        textTransform: "uppercase"
     }
 });
